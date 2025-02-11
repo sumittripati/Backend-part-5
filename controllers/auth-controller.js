@@ -1,8 +1,9 @@
 const User = require('../schema/user-schema');
+// const bcrypt = require('bcryptjs');
 
 let Home = async (req, res) => {
     try {
-        res.send('Hello kashish');
+        res.send('Hello');
     } catch (error) {
         console.log( " controller side error", error);
     }
@@ -19,12 +20,12 @@ let register = async (req, res) => {
             return res.status(400).json({ msg: "User already exists" });   // return used to stop the execution of the code
         }
 
+        // hashing the password
+
         let Newuser = await User.create({ username, email, phone, password, isAdmin });
-        console.log("Newuser", Newuser);
         res.status(200).json({ msg: Newuser });
     } catch (error) {
         console.log( " controller side error", error);
-        
     }
 }
 
@@ -32,7 +33,7 @@ let register = async (req, res) => {
 
 let login = async (req, res) => {
     try {
-        res.send('login kashish');
+        res.send('login');
     } catch (error) {
         console.log( " controller side error", error);  
     }
@@ -42,7 +43,7 @@ let login = async (req, res) => {
 
 let contact = async (req, res) => {
     try {
-        res.send('contact kashish');
+        res.send('contact');
     } catch (error) {
         console.log( " controller side error", error);
     }
@@ -52,7 +53,7 @@ let contact = async (req, res) => {
 
 let logout = async (req, res) => {
     try {
-        res.send('logout kashish');
+        res.send('logout');
     } catch (error) {
         console.log( " controller side error", error);
     }
