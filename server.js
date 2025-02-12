@@ -2,11 +2,14 @@ require("dotenv").config();
 let express = require('express');
 let Routes = require('./routes/routers');
 let connect = require('./db/connect');
+const errorHandler = require("./middleware/error-middleware");
 const app = express();
 
 app.use(express.json());
 
 app.use('/api/backend', Routes);
+
+app.use(errorHandler)
 
 connect().then(() => {
     console.log('Database connected successfully');
