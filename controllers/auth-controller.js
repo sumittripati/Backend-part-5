@@ -4,7 +4,8 @@ const bcrypt = require('bcryptjs');
 
 let Home = async (req, res) => {
     try {
-        res.send('Hello');
+        // res.status(200).json({ msg: "Welcome to the home page" });
+        res.send('Welcome to the home page');
     } catch (error) {
         console.log( " controller side error", error);
     }
@@ -12,26 +13,57 @@ let Home = async (req, res) => {
 
 // register user
 
+// let register = async (req, res) => {
+//     try {
+//         const { username, email, phone, password, isAdmin } = req.body;
+
+//         let Existuser = await User.findOne({ email: email });
+//         if (Existuser) {
+//             return res.status(400).json({ msg: "User already exists" });   // return used to stop the execution of the code
+//         }
+
+//         let Newuser = await User.create({ username, email, phone, password, isAdmin });
+//         // add token
+//         res.status(200).json({
+//             msg: "Newser register successfully", 
+//             token: await Newuser.generateToken(), 
+//             userID : Newuser._id.toString()
+//         })
+//     } catch (error) {
+//         console.log( " controller side error", error);
+//     }
+// }
+
 let register = async (req, res) => {
     try {
         const { username, email, phone, password, isAdmin } = req.body;
 
         let Existuser = await User.findOne({ email: email });
         if (Existuser) {
-            return res.status(400).json({ msg: "User already exists" });   // return used to stop the execution of the code
+            console.log("User already exists");
+            return res.status(400).json({ msg: "User already exists" });
         }
 
         let Newuser = await User.create({ username, email, phone, password, isAdmin });
+  
+        if (Newuser) {
+            console.log("Data stored in the database successfully.");
+        } else {
+            console.log("Data not stored in the database.");
+        }
         // add token
         res.status(200).json({
-            msg: "Newser register successfully", 
-            token: await Newuser.generateToken(), 
-            userID : Newuser._id.toString()
-        })
+            msg: "User registered successfully",
+            token: await Newuser.generateToken(),
+            userID: Newuser._id.toString()
+        });
     } catch (error) {
-        console.log( " controller side error", error);
+        console.log("Controller side error:", error);
+        console.log("Data not stored in the database.");
+        res.status(500).json({ msg: "Internal server error" });
     }
-}
+};
+
 
 // login user
 
