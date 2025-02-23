@@ -4,6 +4,8 @@ let express = require('express');
 let Routes = require('./routes/routers');
 let connect = require('./db/connect');
 const errorHandler = require("./middleware/error-middleware");
+const serviceRoute = require("./routes/service-router")
+const adminRoute = require("./routes/admin-router");
 const app = express();
 const PORT = process.env.PORT || 3000;
 
@@ -20,6 +22,11 @@ app.use(cors(corsOptions))
 app.use(express.json());
 
 app.use('/api/backend', Routes);
+app.use("/api/data", serviceRoute)
+
+// admin route
+
+app.use("/api/admin", adminRoute)
 
 app.use(errorHandler)
 
