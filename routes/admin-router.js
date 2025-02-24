@@ -1,6 +1,6 @@
 let express = require('express');
 let router = express.Router();
-let {getAllUsers, getAllContacts, deleteUserById, getUserById, updateUserById} = require('../controllers/admin-controller');
+let {getAllUsers, getAllContacts, deleteUserById, getUserById, updateUserById, deleteContactById} = require('../controllers/admin-controller');
 let authMiddleware = require('../middleware/authMiddleware');
 let adminMiddleware = require('../middleware/admin-middleware');
 
@@ -12,6 +12,8 @@ router.route("/users/update/:id").patch(authMiddleware, adminMiddleware, updateU
 
 router.route("/users/delete/:id").delete(authMiddleware, adminMiddleware, deleteUserById);
 
-router.route("/contacts").get(authMiddleware, getAllContacts)
+router.route("/contacts/delete/:id").delete(authMiddleware, adminMiddleware, deleteContactById);
+
+router.route("/contacts").get(authMiddleware, adminMiddleware, getAllContacts)
 
 module.exports = router;

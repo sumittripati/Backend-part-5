@@ -28,20 +28,6 @@ const getUserById = async (req, res) => {
 
 // update user logic
 
-// const updateUserById = async (req, res) => {
-//     try {
-//          const id = req.params.id;
-//          const updateUserData = req.body;
-
-//          const updatedData = await User.findOne({ _id: id }, { $set : updateUserData });
-//          return res.status(200).json(updatedData);
-//     } catch (error) {
-//         console.error("Error updating user in dashboard :", error);
-//         next(error)
-//     }
-// }
-
-
 const updateUserById = async (req, res) => {
     try {
         const { id } = req.params;
@@ -94,4 +80,17 @@ const getAllContacts = async (req, res) => {
     }
 }
 
-module.exports = {getAllUsers, getAllContacts, deleteUserById, getUserById, updateUserById} ;
+// contact delete logic
+
+const deleteContactById = async (req, res) => {
+    try {
+        const id = req.params.id;
+        const user = await Contact.deleteOne({ _id: id });
+        return res.status(200).json(message = "contact deleted successfully");
+    } catch (error) {
+        next(error)
+        console.error("Error deleting user in dashboard :", error);
+    }
+}
+
+module.exports = {getAllUsers, getAllContacts, deleteUserById, getUserById, updateUserById, deleteContactById} ;

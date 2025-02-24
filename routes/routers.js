@@ -6,9 +6,11 @@ const {registerSchema, loginSchema} = require('../validators/auth-validator');
 const router = express.Router();
 
 router.route("/").get(Home)
-router.route("/register").post(validator(registerSchema),register)
+router.route("/register").post(validator(registerSchema), register)
 router.route("/login").post(login)
-router.route("/contact").post(validator(loginSchema),authenticateUser,contact);
+// router.route("/contact").post(validator(loginSchema), authenticateUser, contact);
+router.route("/contact").post(authenticateUser, contact);
+
 router.route("/logout").get(logout)
 router.route("/user").get(authenticateUser, user);
 
