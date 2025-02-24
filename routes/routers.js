@@ -10,7 +10,6 @@ router.route("/register").post(validator(registerSchema),register)
 router.route("/login").post(login)
 router.route("/contact").post(validator(loginSchema),authenticateUser,contact);
 router.route("/logout").get(logout)
-// router.route("user").get(user)
 router.route("/user").get(authenticateUser, user);
 
 
